@@ -1,7 +1,6 @@
 :host {
-    display: flex;
-    flex-direction: row;
     height: 100%;
+    display: flex;
 
     @media (max-width: 480px) {
         flex-direction: column;

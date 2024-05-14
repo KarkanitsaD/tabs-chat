@@ -15,7 +15,6 @@ import {
     SendTypingNotification,
     UserTyping,
 } from '../../messges-state/messages.actions';
-import { UserHelper } from '../../helpers/user.helper';
 
 @Component({
     selector: 'app-chat',
@@ -24,7 +23,7 @@ import { UserHelper } from '../../helpers/user.helper';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatComponent implements OnInit {
-    @Input() userId = UserHelper.getUserId();
+    @Input() userId = 0;
 
     messages$: Observable<Message[]> = this.store.select(MessagesState);
 
@@ -71,7 +70,7 @@ export class ChatComponent implements OnInit {
                 }),
                 debounceTime(500),
             )
-            .subscribe(v => {
+            .subscribe(() => {
                 this.typingUserId = 0;
                 this.cdr.detectChanges();
             });

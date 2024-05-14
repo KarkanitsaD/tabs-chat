@@ -11,13 +11,7 @@ import { BroadcastService } from '../services/broadcast.service';
 
 @State<Message[]>({
     name: 'messgaes',
-    defaults: [
-        {
-            userId: 12,
-            content:
-                'Tex asdxjhas as asba sc sacibsa csa cjs ascx sa. Weidsuhc sqwhds qwasdyx qsagdvxq sadgxvqw!!!',
-        },
-    ],
+    defaults: [],
 })
 @Injectable()
 export class MessagesState {
