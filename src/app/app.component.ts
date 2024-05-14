@@ -7,6 +7,4 @@ import { BroadcastService } from './services/broadcast.service';
     styleUrl: './app.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-    constructor(private broadcastService: BroadcastService) {}
-}
+export class AppComponent {}

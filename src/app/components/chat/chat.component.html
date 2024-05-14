@@ -3,6 +3,9 @@
         User{{ message.userId }}: {{ message.content }}
     </div>
 </div>
+<div *ngIf="typingUserId" class="typing-info">
+    Tab №{{ typingUserId }} types now...
+</div>
 <mat-form-field>
     <input matInput [formControl]="messageControl" placeholder="Write message..." (keyup.enter)="onSend()">
     <mat-icon matSuffix (click)="onSend()">send</mat-icon>

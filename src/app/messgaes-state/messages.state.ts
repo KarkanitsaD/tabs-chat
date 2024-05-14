@@ -1,6 +1,10 @@
 import { Action, NgxsOnInit, State, StateContext } from '@ngxs/store';
 import { Message } from '../models/message.interface';
-import { AddMessage, SendMessage } from './messages.actions';
+import {
+    AddMessage,
+    SendMessage,
+    SendTypingNotification,
+} from './messages.actions';
 import { append } from '@ngxs/store/operators';
 import { Injectable } from '@angular/core';
 import { BroadcastService } from '../services/broadcast.service';
@@ -10,15 +14,8 @@ import { BroadcastService } from '../services/broadcast.service';
     defaults: [],
 })
 @Injectable()
-export class MessagesState implements NgxsOnInit {
+export class MessagesState {
     constructor(private broadcastService: BroadcastService) {}
-
-    ngxsOnInit({ setState }: StateContext<Message[]>): void {
-        const json = localStorage.getItem('messages');
-        if (json) {
-            setState(JSON.parse(json) as Message[]);
-        }
-    }
 
     @Action(SendMessage)
     onSendMessgae(
@@ -35,5 +32,13 @@ export class MessagesState implements NgxsOnInit {
         { message }: AddMessage,
     ): void {
         setState(append([message]));
+    }
+
+    @Action(SendTypingNotification)
+    onSendTypingNotification(
+        _: StateContext<Message[]>,
+        { userId }: SendTypingNotification,
+    ): void {
+        this.broadcastService.sendTypingNotofocation(userId);
     }
 }
