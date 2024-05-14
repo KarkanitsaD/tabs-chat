@@ -1,13 +1,13 @@
 :host {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
     background-color: lemonchiffon;
     padding: 10px;
 
     @media (max-width: 480px) {
         flex-direction: row;
-        align-items: center;
     }
 }
 

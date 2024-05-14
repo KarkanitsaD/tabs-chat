@@ -18,8 +18,13 @@ export class BroadcastService {
         this.messagesChannel.postMessage(message);
     }
 
-    sendTypingNotofocation(userId: number): void {
+    sendTypingNotification(userId: number): void {
         this.typingChannel.postMessage(userId);
+    }
+
+    closeChannels(): void {
+        this.typingChannel.close();
+        this.messagesChannel.close();
     }
 
     private messageHandler = (message: any) => {

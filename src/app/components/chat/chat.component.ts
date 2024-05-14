@@ -3,18 +3,16 @@ import {
     ChangeDetectorRef,
     Component,
     Input,
+    OnDestroy,
     OnInit,
 } from '@angular/core';
 import { Actions, Store, ofActionSuccessful } from '@ngxs/store';
-import { Observable, debounceTime, tap } from 'rxjs';
+import { Observable, Subscription, debounceTime, tap } from 'rxjs';
 import { Message } from '../../models/message.interface';
 import { MessagesState } from '../../messges-state/messages.state';
 import { FormControl } from '@angular/forms';
-import {
-    SendMessage,
-    SendTypingNotification,
-    UserTyping,
-} from '../../messges-state/messages.actions';
+import { AddMessage, UserTyping } from '../../messges-state/messages.actions';
+import { BroadcastService } from '../../services/broadcast.service';
 
 @Component({
     selector: 'app-chat',
@@ -22,7 +20,7 @@ import {
     styleUrl: './chat.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
     @Input() userId = 0;
 
     messages$: Observable<Message[]> = this.store.select(MessagesState);
@@ -31,35 +29,48 @@ export class ChatComponent implements OnInit {
 
     typingUserId = 0;
 
+    private subscriptions: Subscription[] = [];
+
     constructor(
         private store: Store,
         private actions$: Actions,
         private cdr: ChangeDetectorRef,
+        private broadcastService: BroadcastService,
     ) {}
 
     ngOnInit(): void {
-        this.messageChangesSubscription();
-        this.userTypingSubscription();
+        this.subscriptions.push(
+            this.messageChangesSubscription(),
+            this.userTypingSubscription(),
+        );
+    }
+
+    ngOnDestroy(): void {
+        this.broadcastService.closeChannels();
+
+        for (let i = 0; i < this.subscriptions.length; i++) {
+            this.subscriptions[i].unsubscribe();
+        }
     }
 
     onSend(): void {
         const content = this.messageControl.value;
         if (content) {
-            this.store.dispatch(
-                new SendMessage({ userId: this.userId, content }),
-            );
+            const message: Message = { userId: this.userId, content };
+            this.store.dispatch(new AddMessage(message));
+            this.broadcastService.sendMessage(message);
             this.messageControl.setValue('', { emitEvent: false });
         }
     }
 
-    private messageChangesSubscription(): void {
-        this.messageControl.valueChanges.subscribe(() =>
-            this.store.dispatch(new SendTypingNotification(this.userId)),
+    private messageChangesSubscription(): Subscription {
+        return this.messageControl.valueChanges.subscribe(() =>
+            this.broadcastService.sendTypingNotification(this.userId),
         );
     }
 
-    private userTypingSubscription(): void {
-        this.actions$
+    private userTypingSubscription(): Subscription {
+        return this.actions$
             .pipe(
                 ofActionSuccessful(UserTyping),
                 tap(action => {
