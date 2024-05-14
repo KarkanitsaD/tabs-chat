@@ -8,13 +8,13 @@ import {
 import { Actions, Store, ofActionSuccessful } from '@ngxs/store';
 import { Observable, debounceTime, tap } from 'rxjs';
 import { Message } from '../../models/message.interface';
-import { MessagesState } from '../../messgaes-state/messages.state';
+import { MessagesState } from '../../messges-state/messages.state';
 import { FormControl } from '@angular/forms';
 import {
     SendMessage,
     SendTypingNotification,
     UserTyping,
-} from '../../messgaes-state/messages.actions';
+} from '../../messges-state/messages.actions';
 import { UserHelper } from '../../helpers/user.helper';
 
 @Component({

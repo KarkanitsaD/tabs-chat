@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChatComponent } from './components/chat/chat.component';
-import { MessagesState } from './messgaes-state/messages.state';
+import { MessagesState } from './messges-state/messages.state';
 import { BroadcastService } from './services/broadcast.service';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 

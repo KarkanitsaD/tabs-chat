@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Message } from '../models/message.interface';
 import { Store } from '@ngxs/store';
-import { AddMessage, UserTyping } from '../messgaes-state/messages.actions';
+import { AddMessage, UserTyping } from '../messges-state/messages.actions';
 
 @Injectable()
 export class BroadcastService {
