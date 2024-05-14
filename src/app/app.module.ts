@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { MessagesState } from './messgaes-state/messages.state';
+import { BroadcastService } from './services/broadcast.service';
 
 @NgModule({
     declarations: [AppComponent, ChatComponent],
@@ -23,7 +24,7 @@ import { MessagesState } from './messgaes-state/messages.state';
         NgxsModule.forRoot([MessagesState]),
         ReactiveFormsModule,
     ],
-    providers: [provideAnimationsAsync()],
+    providers: [provideAnimationsAsync(), BroadcastService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}
