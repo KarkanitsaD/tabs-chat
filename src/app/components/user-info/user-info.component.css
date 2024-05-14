@@ -1,0 +1,19 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: lemonchiffon;
+    padding: 10px;
+
+    @media (max-width: 480px) {
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+.user-logo {
+    width: 60px;
+    height: 60px;
+    background-color: cadetblue;
+    border-radius: 50%;
+}

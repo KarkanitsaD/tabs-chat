@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BroadcastService } from './services/broadcast.service';
+import { UserHelper } from './helpers/user.helper';
 
 @Component({
     selector: 'app-root',
@@ -7,4 +7,6 @@ import { BroadcastService } from './services/broadcast.service';
     styleUrl: './app.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {}
+export class AppComponent {
+    userId = UserHelper.getUserId();
+}

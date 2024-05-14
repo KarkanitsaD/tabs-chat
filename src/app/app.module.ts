@@ -12,9 +12,10 @@ import { AppComponent } from './app.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { MessagesState } from './messgaes-state/messages.state';
 import { BroadcastService } from './services/broadcast.service';
+import { UserInfoComponent } from './components/user-info/user-info.component';
 
 @NgModule({
-    declarations: [AppComponent, ChatComponent],
+    declarations: [AppComponent, ChatComponent, UserInfoComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,

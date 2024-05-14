@@ -2,6 +2,7 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    Input,
     OnInit,
 } from '@angular/core';
 import { Actions, Store, ofActionSuccessful } from '@ngxs/store';
@@ -23,13 +24,13 @@ import { UserHelper } from '../../helpers/user.helper';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatComponent implements OnInit {
+    @Input() userId = UserHelper.getUserId();
+
     messages$: Observable<Message[]> = this.store.select(MessagesState);
 
     messageControl = new FormControl<string>('');
 
     typingUserId = 0;
-
-    private userId = UserHelper.getUserId();
 
     constructor(
         private store: Store,
