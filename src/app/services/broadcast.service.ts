@@ -27,11 +27,11 @@ export class BroadcastService {
         this.messagesChannel.close();
     }
 
-    private messageHandler = (message: any) => {
-        this.store.dispatch(new AddMessage(message.data as Message));
+    private messageHandler = (message: { data: Message }) => {
+        this.store.dispatch(new AddMessage(message.data));
     };
 
-    private typingHandler = (message: any) => {
+    private typingHandler = (message: { data: number }) => {
         this.store.dispatch(new UserTyping(message.data));
     };
 }

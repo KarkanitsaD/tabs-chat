@@ -1,4 +1,4 @@
-import { Action, NgxsOnInit, State, StateContext } from '@ngxs/store';
+import { Action, State, StateContext } from '@ngxs/store';
 import { Message } from '../models/message.interface';
 import { AddMessage } from './messages.actions';
 import { insertItem } from '@ngxs/store/operators';
