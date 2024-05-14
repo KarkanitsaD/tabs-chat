@@ -1,6 +1,7 @@
 <div class="messages-list">
     <div *ngFor="let message of messages$ | async" class="message">
-        User{{ message.userId }}: {{ message.content }}
+        <div class="message-header">{{ 'Tab №' + message.userId }}</div>
+        <div class="message-content">{{ message.content }}</div>
     </div>
 </div>
 <div *ngIf="typingUserId" class="typing-info">

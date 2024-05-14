@@ -5,13 +5,19 @@ import {
     SendMessage,
     SendTypingNotification,
 } from './messages.actions';
-import { append } from '@ngxs/store/operators';
+import { append, insertItem } from '@ngxs/store/operators';
 import { Injectable } from '@angular/core';
 import { BroadcastService } from '../services/broadcast.service';
 
 @State<Message[]>({
     name: 'messgaes',
-    defaults: [],
+    defaults: [
+        {
+            userId: 12,
+            content:
+                'Tex asdxjhas as asba sc sacibsa csa cjs ascx sa. Weidsuhc sqwhds qwasdyx qsagdvxq sadgxvqw!!!',
+        },
+    ],
 })
 @Injectable()
 export class MessagesState {
@@ -22,7 +28,7 @@ export class MessagesState {
         { setState }: StateContext<Message[]>,
         { message }: SendMessage,
     ): void {
-        setState(append([message]));
+        setState(insertItem(message, 0));
         this.broadcastService.sendMessage(message);
     }
 
@@ -31,7 +37,7 @@ export class MessagesState {
         { setState }: StateContext<Message[]>,
         { message }: AddMessage,
     ): void {
-        setState(append([message]));
+        setState(insertItem(message, 0));
     }
 
     @Action(SendTypingNotification)
