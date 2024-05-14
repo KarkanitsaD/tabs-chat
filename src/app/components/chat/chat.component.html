@@ -1,6 +1,9 @@
 <div class="messages-list">
-
+    <div *ngFor="let message of messages$ | async" class="message">
+        User{{ message.userId }}: {{ message.content }}
+    </div>
 </div>
 <mat-form-field>
-    <input matInput placeholder="Write message...">
+    <input matInput [formControl]="messageControl" placeholder="Write message..." (keyup.enter)="onSend()">
+    <mat-icon matSuffix (click)="onSend()">send</mat-icon>
 </mat-form-field>
